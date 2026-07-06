@@ -44,9 +44,9 @@ export default function Hero() {
         {/* Left: Bold Typography */}
         <div className="flex flex-col space-y-8">
           <div className="overflow-hidden">
-            <h1 className="text-[80px] md:text-[120px] leading-[0.85] font-black italic uppercase tracking-tighter flex flex-col">
-              <span ref={titlePart1Ref} className="block">Digital</span>
-              <span ref={titlePart2Ref} className="block text-transparent stroke-text">Visionary</span>
+            <h1 className="text-[42px] sm:text-[64px] md:text-[80px] lg:text-[68px] xl:text-[88px] 2xl:text-[100px] leading-[0.85] font-black italic uppercase tracking-tighter flex flex-col">
+              <span ref={titlePart1Ref} className="block">Marketing</span>
+              <span ref={titlePart2Ref} className="block text-transparent stroke-text">Strategist</span>
             </h1>
           </div>
 
