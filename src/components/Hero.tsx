@@ -87,7 +87,7 @@ export default function Hero() {
 
       {/* Background Text Overlay */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-offwhite/[0.02] text-[40vw] font-black italic select-none -z-10 tracking-tighter pointer-events-none">
-        AWAIS
+        FAZAL
       </div>
     </section>
   );

@@ -8,7 +8,7 @@ interface ProfileImageProps {
 }
 
 export default function ProfileImage({ className = "" }: ProfileImageProps) {
-  const imageUrl = "https://aqlionix.com/wp-content/uploads/2026/05/ChatGPTImageMay13202609_53_44A.jpeg";
+  const imageUrl = "https://aqlionix.com/wp-content/uploads/2026/07/c6f36008-3a3b-4d8c-88e3-b0d814892aa6-1.png";
 
   return (
     <div className={`relative group ${className}`}>
@@ -21,7 +21,7 @@ export default function ProfileImage({ className = "" }: ProfileImageProps) {
       >
         <img 
           src={imageUrl}
-          alt="Muhammad Awais"
+          alt="Fazal-e-Subhani"
           className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
           referrerPolicy="no-referrer"
         />

@@ -50,7 +50,7 @@ export default function Contact() {
         </div>
 
         <div className="border-t border-offwhite/10 pt-12 flex flex-col md:flex-row justify-between items-center gap-6 text-offwhite/20 text-[9px] font-black uppercase tracking-[0.6em]">
-          <p>© 2024 MUHAMMAD AWAIS PORTFOLIO</p>
+          <p>© 2026 FAZAL-E-SUBHANI PORTFOLIO</p>
           <div className="flex gap-12">
             <span>STRATEGY FIRST</span>
             <span>DATA DRIVEN</span>

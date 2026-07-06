@@ -4,7 +4,11 @@ import { PORTFOLIO_CATEGORIES } from '../constants';
 import * as Icons from 'lucide-react';
 import { ExternalLink, ArrowLeft, Trash2 } from 'lucide-react';
 
-export default function PortfolioGallery() {
+interface PortfolioGalleryProps {
+  isAdmin?: boolean;
+}
+
+export default function PortfolioGallery({ isAdmin: externalIsAdmin }: PortfolioGalleryProps) {
   const [activeTab, setActiveTab] = useState<'on-page' | 'off-page' | 'gmb' | 'web-pages'>('on-page');
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [categories, setCategories] = useState(PORTFOLIO_CATEGORIES);
@@ -13,6 +17,12 @@ export default function PortfolioGallery() {
     return localStorage.getItem('portfolio_admin') === 'true' || 
            new URLSearchParams(window.location.search).get('admin') === 'true';
   });
+
+  useEffect(() => {
+    if (externalIsAdmin !== undefined) {
+      setIsAdmin(externalIsAdmin);
+    }
+  }, [externalIsAdmin]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);

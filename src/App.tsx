@@ -9,14 +9,46 @@ import About from './components/About';
 import Skills from './components/Skills';
 import PortfolioGallery from './components/PortfolioGallery';
 import Contact from './components/Contact';
-import { useEffect } from 'react';
+import AdminLogin from './components/AdminLogin';
+import { useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { LogOut, LayoutDashboard } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
+  const [showAdminLogin, setShowAdminLogin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return localStorage.getItem('portfolio_admin') === 'true';
+  });
+
   useEffect(() => {
+    // Check URL hash or path for admin
+    const checkPath = () => {
+      const path = window.location.hash || window.location.pathname;
+      if (path === '#admin' || path === '/admin') {
+        if (!isAdmin) {
+          setShowAdminLogin(true);
+        }
+      } else {
+        setShowAdminLogin(false);
+      }
+    };
+
+    checkPath();
+    window.addEventListener('popstate', checkPath);
+    window.addEventListener('hashchange', checkPath);
+    return () => {
+      window.removeEventListener('popstate', checkPath);
+      window.removeEventListener('hashchange', checkPath);
+    };
+  }, [isAdmin]);
+
+  useEffect(() => {
+    if (showAdminLogin) return;
+
     // Smooth scroll configuration or any global animations
     const sections = document.querySelectorAll('section');
     sections.forEach((section) => {
@@ -35,7 +67,23 @@ export default function App() {
         }
       );
     });
-  }, []);
+  }, [showAdminLogin]);
+
+  const handleLoginSuccess = () => {
+    setIsAdmin(true);
+    setShowAdminLogin(false);
+    window.location.hash = 'admin';
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('portfolio_admin');
+    setIsAdmin(false);
+    window.location.hash = '';
+  };
+
+  if (showAdminLogin) {
+    return <AdminLogin onLogin={handleLoginSuccess} />;
+  }
 
   return (
     <main className="relative bg-black text-offwhite selection:bg-brand selection:text-white overflow-x-hidden">
@@ -47,23 +95,44 @@ export default function App() {
 
       {/* Navigation Bar */}
       <nav className="fixed top-0 w-full flex justify-between items-center px-10 py-8 z-50 backdrop-blur-sm bg-black/10">
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-offwhite rounded-full overflow-hidden flex items-center justify-center transform hover:rotate-12 transition-transform cursor-pointer border border-brand/20">
+        <div 
+          onClick={() => window.location.hash = 'admin'}
+          className="flex items-center space-x-3 cursor-pointer group"
+        >
+          <div className="w-10 h-10 bg-offwhite rounded-full overflow-hidden flex items-center justify-center transform group-hover:rotate-12 transition-transform border border-brand/20">
             <img 
-              src="https://aqlionix.com/wp-content/uploads/2026/05/ChatGPTImageMay13202609_53_44A.jpeg" 
+              src="https://aqlionix.com/wp-content/uploads/2026/07/c6f36008-3a3b-4d8c-88e3-b0d814892aa6-1.png" 
               alt="Logo"
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"
             />
           </div>
-          <span className="font-black tracking-tighter text-xl uppercase italic">Muhammad Awais</span>
+          <span className="font-black tracking-tighter text-xl uppercase italic group-hover:text-brand transition-colors">Fazal-e-Subhani</span>
         </div>
-        <div className="hidden md:flex space-x-8 text-[10px] font-bold uppercase tracking-[0.3em] text-offwhite/50">
-          <a href="#hero" className="text-offwhite border-b border-offwhite pb-1">Overview</a>
-          <a href="#about" className="hover:text-offwhite transition-colors">Excellence</a>
-          <a href="#skills" className="hover:text-offwhite transition-colors">History</a>
-          <a href="#portfolio" className="hover:text-offwhite transition-colors">Portfolio</a>
-          <a href="mailto:fazalsubhaniwriter@gmail.com" className="hover:text-offwhite transition-colors">Contact</a>
+        
+        <div className="flex items-center space-x-8">
+          <div className="hidden md:flex space-x-8 text-[10px] font-bold uppercase tracking-[0.3em] text-offwhite/50">
+            <a href="#hero" className="text-offwhite border-b border-offwhite pb-1">Overview</a>
+            <a href="#about" className="hover:text-offwhite transition-colors">Excellence</a>
+            <a href="#skills" className="hover:text-offwhite transition-colors">History</a>
+            <a href="#portfolio" className="hover:text-offwhite transition-colors">Portfolio</a>
+            <a href="mailto:fazalsubhaniwriter@gmail.com" className="hover:text-offwhite transition-colors">Contact</a>
+          </div>
+
+          {isAdmin && (
+            <div className="flex items-center space-x-4 pl-8 border-l border-white/10">
+              <span className="flex items-center gap-2 text-brand text-[9px] font-black uppercase tracking-widest bg-brand/10 px-3 py-1.5 rounded-full border border-brand/20">
+                <LayoutDashboard size={12} /> Admin Mode
+              </span>
+              <button 
+                onClick={handleLogout}
+                className="text-red-500 hover:text-white hover:bg-red-600 transition-all p-2 rounded-full border border-red-600/20"
+                title="Sign Out"
+              >
+                <LogOut size={16} />
+              </button>
+            </div>
+          )}
         </div>
       </nav>
 
@@ -86,7 +155,7 @@ export default function App() {
       </section>
 
       <section id="portfolio">
-        <PortfolioGallery />
+        <PortfolioGallery isAdmin={isAdmin} />
       </section>
       
       <Contact />

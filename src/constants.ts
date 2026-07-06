@@ -20,21 +20,21 @@ export const EXPERIENCES: ExperienceItem[] = [
   {
     company: 'Carpe Diem',
     role: 'Team Lead / SEO Strategist',
-    period: '2019 - Present (6 years)',
+    period: '2024 - 2026',
     location: 'United Kingdom (Remote)',
     description: 'Leading both SEO and content writing departments. Strategy building, content execution, and UI/UX focused design. QA specialist turned Lead.',
   },
   {
     company: 'Broad Vision',
     role: 'Marketing Copywriter & SEO Specialist',
-    period: '2017 - 2019 (2 years)',
+    period: '2022 - 2024',
     location: 'Germany (Remote)',
     description: 'Managed pure marketing copywriting, on-page/off-page SEO, landing pages, campaign copies, and creative design.',
   },
   {
     company: 'Freelance',
     role: 'Ebook Writer & Video Editor',
-    period: '2022',
+    period: '2020 - 2022',
     description: 'Specialized in freelance ebook writing and high-end video editing services.',
   },
   {
@@ -65,7 +65,7 @@ export const SKILLS: Skill[] = [
 
 export const CONTACT_INFO = {
   email: 'fazalsubhaniwriter@gmail.com',
-  linkedin: 'https://www.linkedin.com/in/muhammad-awais-aa1959337',
+  linkedin: 'https://www.linkedin.com/in/fazal-e-subhani',
   phone: '+923081168623',
 };
 
